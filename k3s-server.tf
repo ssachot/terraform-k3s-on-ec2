@@ -14,7 +14,7 @@ data "aws_ami" "latest-ubuntu-image" {
 resource "aws_instance" "k3s-Master-server" {
   ami                         = data.aws_ami.latest-ubuntu-image.id
   instance_type               = var.instance_type
-  key_name                    = "devops"
+  key_name                    = "ssev_keypair"
   subnet_id                   = aws_subnet.k3s-subnet-1.id
   vpc_security_group_ids      = [aws_default_security_group.default-sg.id]
   availability_zone           = var.avail_zone
@@ -29,7 +29,7 @@ resource "aws_instance" "k3s-worker" {
   count                       = 1  # Always start with 2 instances
   ami                         = data.aws_ami.latest-ubuntu-image.id
   instance_type               = var.instance_type
-  key_name                    = "devops"
+  key_name                    = "ssev_keypair"
   subnet_id                   = aws_subnet.k3s-subnet-1.id
   vpc_security_group_ids      = [aws_default_security_group.default-sg.id]
   availability_zone           = var.avail_zone
